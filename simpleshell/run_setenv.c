@@ -1,7 +1,9 @@
-#include "shell.h"
+#include "minishell.h"
 /*
- *builtin_setenv.c
+ * builtin_setenv.c
+ * by : dounia & Mr1el
  */
+
 void	set_env_var(char *key, char *value)
 {
 	int		pos;

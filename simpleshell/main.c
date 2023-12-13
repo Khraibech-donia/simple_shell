@@ -1,8 +1,11 @@
-#include "shell.h"
+#include "minishell.h"
 /*
  * main.c
- * by : khraibech dounia & Mr1el
+ *by : dounia & Mr1el
  */
+
+char **g_env;
+
 void	prompt(void)
 {
 	char	*pwd;
@@ -15,14 +18,16 @@ void	prompt(void)
 	else if (!ft_strcmp(pwd, get_var("HOME")))
 		ft_put3str("\033[1;31m ", "~", "\033[0;33m $ \033[0m");
 	else
-		ft_put3str("\033[1;31m ", ft_strechr(pwd, '/') + 1, \"\033[0;33m $ \033[0m");
+		ft_put3str("\033[1;31m ", ft_strechr(pwd, '/') + 1, \
+			"\033[0;33m $ \033[0m");
 }
+
 char	*input_handler(void)
 {
-	char *input;
-	char buf;
-	int nbr_oct;
-	int i[2];
+	char	*input;
+	char	buf;
+	int		nbr_oct;
+	int		i[2];
 
 	input = ft_strnew(0);
 	i[0] = 0;
@@ -59,13 +64,13 @@ int	main(int ac, char **av, char **env)
 		signal(SIGINT, ft_signal);
 		input = input_handler();
 		if (ft_isempty(&input))
-			continue;
+			continue ;
 		cmds = ft_strsplit(input, ';');
 		free(input);
 		if (execution(&cmds) == -1)
 		{
 			ft_putendl("\033[0;31m my_sh terminated.\033[0m");
-			break;
+			break ;
 		}
 	}
 	ft_free(&g_env);

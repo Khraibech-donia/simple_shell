@@ -1,7 +1,9 @@
-#include "shell.h"
+#include "minishell.h"
 /*
-*environnement.c
-*/
+ * environment.c
+ * by : dounia & Mr1el
+ */
+
 int	print_env(void)
 {
 	int	i;

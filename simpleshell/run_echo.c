@@ -1,7 +1,9 @@
-#include "shell.h"
+#include "minishell.h"
 /*
  * builtin_echo.c
-*/
+ * by :dounia & Mr1el
+ */
+
 static int	check_flag(char *arg, int n)
 {
 	int	i;
@@ -48,7 +50,8 @@ int	run_echo(char **input)
 
 	i = -1;
 	n = 0;
-	while (input[++i] && ft_strequ(input[i], "-n") && \ check_flag(input[i], 'n'))
+	while (input[++i] && ft_strequ(input[i], "-n") && \
+	check_flag(input[i], 'n'))
 		n = 1;
 	while (input[i])
 	{

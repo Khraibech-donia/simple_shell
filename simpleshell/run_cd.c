@@ -1,7 +1,9 @@
-#include "shell.h"
+#include "minishell.h"
 /*
-* builtin_cd.c
-*/
+ * builtin_cd.c
+ * by dounia &Mr1
+ */
+
 void	cd_error(char *path)
 {
 	ft_putstr("cd: ");

@@ -1,7 +1,8 @@
-#include "shell.h"
+#include "minishell.h"
 /*
-* utils.c
-*/
+ * utils.c
+ */
+
 int	isspce(char c)
 {
 	if (c == ' ' || c == '\t')

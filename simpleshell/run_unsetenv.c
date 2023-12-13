@@ -1,7 +1,9 @@
-#include "shell.h"
+#include "minishell.h"
 /*
-* builtin_unset.c
+ * builtin_unset.c
+ * by : dounia & Mr1el
  */
+
 static void	unset_var(char *input)
 {
 	int	pos;

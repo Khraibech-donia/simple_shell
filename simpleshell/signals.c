@@ -1,8 +1,9 @@
-#include "shell.h"
-
+#include "minishell.h"
 /*
-* signals.c
-*/
+ *  signals.c
+ *  by : dounia & Mr1el
+ */
+
 void	ft_child_signal(int signo)
 {
 	if (signo == SIGINT)

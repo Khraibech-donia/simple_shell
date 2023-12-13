@@ -1,7 +1,9 @@
-#include "shell.h"
+#include "minishell.h"
 /*
  * commands.c
+ * by : dounia & Mr1el
  */
+
 int	run(char *cmd, char **input)
 {
 	pid_t	pid;

@@ -1,7 +1,9 @@
-#include"shell.h"
+#include"minishell.h"
 /*
- * parse_input.c
-*/
+ *  parse_input.c
+ *  by : dounia & Mr1el
+ */
+
 char	*parse_home(char *path)
 {
 	char	*home_path;
@@ -10,8 +12,9 @@ char	*parse_home(char *path)
 	if (!path)
 		return (NULL);
 	home_path = get_var("HOME");
-	if ((!ft_strstartswith(path, "~")) || \ (!ft_strstartswith(path, home_path)))
-		return (ft_strdup(path));
+	if ((!ft_strstartswith(path, "~")) || \
+			(!ft_strstartswith(path, home_path)))
+		return (ft_strdup (path));
 	if (*(path + ft_strlen(home_path)) == '\0')
 		ret = ft_strdup("~");
 	else
@@ -26,7 +29,8 @@ char	*parse_dollar(char *input, int index)
 	char	c;
 
 	key = ft_strnew(0);
-	while (input[index] && !isspce(input[index]) \ && input[index] != ';' && input[index] != '$')
+	while (input[index] && !isspce(input[index]) \
+	&& input[index] != ';' && input[index] != '$')
 	{
 		c = input[index];
 		key = ft_strchjoinf(key, c);
@@ -61,7 +65,8 @@ char	*parse_expansions(char *rt, char *in, int *n)
 	if (in[i] == '$' && in[i + 1])
 	{
 		ret = ft_strjoin(rt, parse_dollar(in, i + 1));
-		while (in[i + 1] && !isspce(in[i + 1]) && in[i + 1] != '$'\ && in[i + 1] != ';')
+		while (in[i + 1] && !isspce(in[i + 1]) && in[i + 1] != '$'\
+		&& in[i + 1] != ';')
 			i++;
 	}
 	else if (in[i] == '~' && ((i != 0 && isspce(in[i - 1])) || i == 0))

@@ -1,7 +1,9 @@
-#include "shell.h"
+#include "minishell.h"
 /*
  * exec.c
-*/
+ * by : donia & Mr1el
+ */
+
 int	bin_check_ex(char **exc, struct stat st, char ***input)
 {
 	int	ret;
