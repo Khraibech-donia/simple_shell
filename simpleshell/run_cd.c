@@ -1,9 +1,10 @@
 #include "minishell.h"
-/*
- * builtin_cd.c
- * by dounia &Mr1
- */
 
+/**
+ * cd_error - cd_error programm
+ * @path: path
+ * Return: char
+ */
 void	cd_error(char *path)
 {
 	ft_putstr("cd: ");
@@ -16,28 +17,35 @@ void	cd_error(char *path)
 	ft_putendl(path);
 }
 
-void	ft_chdir(char *path, int print)
+/**
+ * ft_chdir - ft_chdir programm
+ * @path: path
+ * @print: print
+ * @env: env
+ */
+void	ft_chdir(char *path, int print, char **env)
 {
-	char	*cwd;
-	char	buff[4097];
 	char	*parsed;
 
-	cwd = getcwd(buff, 4096);
 	if (!chdir(path))
 	{
 		if (print)
 		{
-			parsed = parse_home(path);
+			parsed = parse_home(path, env);
 			ft_putendl(parsed);
 			free(parsed);
 		}
-		set_env_var("OLDPWD", cwd);
 	}
 	else
 		cd_error(path);
 }
-
-static int	has_two_args(char **args)
+/**
+ * has_two_args - has_two_args programm
+ * @args: args
+ * @env: env
+ * Return: char
+ */
+static int	has_two_args(char **args, char **env)
 {
 	char	*cwd;
 	char	buff[4096 + 1];
@@ -57,25 +65,31 @@ static int	has_two_args(char **args)
 		ft_strdel(&tmp);
 		return (1);
 	}
-	ft_chdir(tmp, 1);
+	ft_chdir(tmp, 1, env);
 	free(tmp);
 	return (1);
 }
 
-int	run_cd(char **input)
+/**
+ * run_cd - run_cd programm
+ * @input: input
+ * @env: env
+ * Return: char
+ */
+int	run_cd(char **input, char **env)
 {
 	char	*home;
 
-	home = get_var("HOME");
+	home = get_var("HOME", env);
 	if (!input[1])
-		ft_chdir(home, 0);
+		ft_chdir(home, 0, env);
 	else if (input[2])
-		has_two_args(input);
+		has_two_args(input, env);
 	else if (ft_strequ(input[1], "--"))
-		ft_chdir(home, 0);
+		ft_chdir(home, 0, env);
 	else if (input[1][0] == '-' && !input[0][2])
-		ft_chdir(get_var("OLDPWD"), 1);
+		ft_chdir(get_var("OLDPWD", env), 1, env);
 	else
-		ft_chdir(input[1], 0);
+		ft_chdir(input[1], 0, env);
 	return (1);
 }

@@ -1,33 +1,27 @@
 #include "minishell.h"
-/*
- * main.c
- *by : dounia & Mr1el
+
+/**
+ * prompt - prompt programm
  */
 
-char **g_env;
-
-void	prompt(void)
+void prompt(void)
 {
-	char	*pwd;
-	char	buff[4097];
-
-	pwd = getcwd(buff, 4096);
-	ft_put4str("\033[1;36m", get_var("USER"), "@\033[1;34m", "my_sh");
-	if (!pwd)
-		ft_put3str("\033[1;31m ", "?", "\033[0;33m $ \033[0m");
-	else if (!ft_strcmp(pwd, get_var("HOME")))
-		ft_put3str("\033[1;31m ", "~", "\033[0;33m $ \033[0m");
-	else
-		ft_put3str("\033[1;31m ", ft_strechr(pwd, '/') + 1, \
-			"\033[0;33m $ \033[0m");
+	ft_put3str("\033[1;36m", "\033[1;34m", "my_sh ");
+	ft_putstr("\033[1;31m$ \033[0m");
 }
 
-char	*input_handler(void)
+/**
+ * input_handler - input_handler programm
+ * @env: env
+ * Return: getline input
+ */
+
+char *input_handler(char **env)
 {
-	char	*input;
-	char	buf;
-	int		nbr_oct;
-	int		i[2];
+	char *input;
+	char buf;
+	int nbr_oct;
+	int i[2];
 
 	input = ft_strnew(0);
 	i[0] = 0;
@@ -47,32 +41,42 @@ char	*input_handler(void)
 		free_exit();
 	}
 	if ((ft_strchr((input), '$') != NULL) || (ft_strchr((input), '~') != NULL))
-		parser(&input);
+		parser(&input, env);
 	return (input);
 }
 
-int	main(int ac, char **av, char **env)
-{
-	char	*input;
-	char	**cmds;
+/**
+ * main - main programm
+ * Description: program description
+ * @ac: argc
+ * @av: argv
+ * @env: environment the parameter
+ *
+ * Return: Always 0 (Success)!
+ */
 
+int main(int ac, char **av, char **env)
+{
+	char *input;
+	char **cmds;
+
+	(void)ac;
+	(void)av;
 	input = NULL;
-	init_environment(ac, av, env);
 	while (1)
 	{
 		prompt();
 		signal(SIGINT, ft_signal);
-		input = input_handler();
+		input = input_handler(env);
 		if (ft_isempty(&input))
-			continue ;
+			continue;
 		cmds = ft_strsplit(input, ';');
 		free(input);
-		if (execution(&cmds) == -1)
+		if (execution(&cmds, env) == -1)
 		{
 			ft_putendl("\033[0;31m my_sh terminated.\033[0m");
-			break ;
+			break;
 		}
 	}
-	ft_free(&g_env);
 	return (0);
 }

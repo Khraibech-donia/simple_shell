@@ -1,8 +1,10 @@
 #include "minishell.h"
-/*
- * utils.c
- */
 
+/**
+ * isspce - isspce programm
+ * @c: c
+ * Return: char
+ */
 int	isspce(char c)
 {
 	if (c == ' ' || c == '\t')
@@ -10,13 +12,22 @@ int	isspce(char c)
 	return (0);
 }
 
+/**
+ * free_exit - free_exit programm
+ */
 void	free_exit(void)
 {
-	ft_free(&g_env);
 	write(1, "\n", 1);
 	exit(0);
 }
 
+/**
+ * strreplace - strreplace programm
+ * @haystack: input
+ * @needle: input
+ * @str: input
+ * Return: char
+ */
 char	*strreplace(char *haystack, char *needle, char *str)
 {
 	char	*tmp;
