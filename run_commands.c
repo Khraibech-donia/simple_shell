@@ -114,7 +114,7 @@ int	execution(char ***commandss, char **env)
 		if (ret == -1)
 			break;
 		if (ret == 0)
-			ft_put4str("my_sh: ", "command not found: ", cmd[0], "\n");
+			perror(cmd[0]);
 		ft_free(&cmd);
 	}
 	ft_free(commandss);
