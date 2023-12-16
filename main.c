@@ -22,6 +22,15 @@ char *input_handler(char **env)
 	char buf;
 	int nbr_oct;
 	int i[2];
+	struct stat sb;
+
+	if (fstat(STDIN_FILENO, &sb) == -1)
+	{
+		perror("fstat");
+		exit(-1);
+	}
+	if ((sb.st_mode & S_IFMT) != S_IFIFO)
+		prompt();
 
 	input = ft_strnew(0);
 	i[0] = 0;
@@ -65,7 +74,6 @@ int main(int ac, char **av, char **env)
 	input = NULL;
 	while (1)
 	{
-		prompt();
 		signal(SIGINT, ft_signal);
 		input = input_handler(env);
 		if (ft_isempty(&input))
